@@ -30,6 +30,8 @@ rcbmap = {"r1":[11, 12, 13, 14, 15, 16, 17, 18, 19],
           "b7":[71, 72, 73, 81, 82, 83, 91, 92, 93],
           "b8":[74, 75, 76, 84, 85, 86, 94, 95, 96],
           "b9":[77, 78, 79, 87, 88, 89, 97, 98, 99]}
+
+# Cell class represents one cell in the sudoku that has an id, value, and status
 class cell:
     def __init__(self, id, val):
         self.id = id
@@ -76,7 +78,7 @@ class cell:
     def check_pos(self):
         return self.pos
 
-
+# The rcb class represents a row, column or block of the sudoku board.  Each has an id, list of cells, and list of open cells
 class rcb:
     def __init__(self, id, cells):
         self.id = id
@@ -109,7 +111,7 @@ class rcb:
         return 1
 
 
-
+# The puzzle class represents the whole sudoku board
 class puzzle:
     def __init__(self, layer, pstring, parent):
         global rcbmap
@@ -196,23 +198,22 @@ class puzzle:
         return False
 
 
-
+# Takes the path to a .txt file as input
 def main(filename):
-    #txt = open(filename)
     pstring = ""
+
+    # Opens the .txt file and puts its contents in one long string removing any new lines
     with open(filename, 'r') as txt:
         pstring=txt.read().replace('\n', '')
-    #line = txt.readline()
-    #while line in txt.read()
-    #    pstring.append(line.strip())
-    #    print(line)
     txt.close()
-    #print("Read File: ", pstring)
 
+    # Initializes a puzzle object from the puzzle string
     p = puzzle(0, pstring, None)
+
+    #Calls the solve function with puzzle object
     p.solve()
     print("Finished!")
-    #p.disp()
     exit(0)
 
+# Passes the second argument from the command line to the main function
 main(argv[1])
